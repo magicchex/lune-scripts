@@ -1,0 +1,12 @@
+{
+	"[luau]": {
+		"editor.defaultFormatter": "JohnnyMorganz.stylua",
+		"editor.formatOnSave": true
+  	},
+	"code-runner.executorMapByFileExtension": {
+    ".luau": "clear && lune run $fullFileName"
+  	},
+	"code-runner.runInTerminal": true,
+	"stylua.targetReleaseVersion": "latest",
+	"chat.disableAIFeatures": true
+}
