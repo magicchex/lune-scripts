@@ -8,5 +8,8 @@
   	},
 	"code-runner.runInTerminal": true,
 	"stylua.targetReleaseVersion": "latest",
-	"chat.disableAIFeatures": true
+	"chat.disableAIFeatures": true,
+	"cSpell.words": [
+		"RBLX"
+	]
 }
