@@ -1,28 +1,9 @@
 local Json = {}
 
+local StringPlus = require("./StringPlus")
+
 local function numberOrString(s: string): number | string
 	return tonumber(s) and tonumber(s) or s:gsub('"', "")
-end
-
-local function curlySplit(s: string)
-	local i = 0
-	local result = {}
-	while i < #s do
-		i += 1
-		local _, tail = string.find(s, ",", i)
-		local leftCurly, rightCurly = string.find(s, "{.+}", i)
-
-		tail = tail and tail or #s
-
-		if leftCurly and rightCurly and leftCurly < tail and rightCurly >= tail then
-			table.insert(result, s:sub(leftCurly, rightCurly))
-			i = rightCurly
-			continue
-		end
-		table.insert(result, s:sub(i, tail - 1))
-		i = tail
-	end
-	return result
 end
 
 function Json.decode(json: string)
@@ -51,7 +32,7 @@ function Json.decode(json: string)
 			local _, tail = string.find(json, "%]", i)
 			value = json:sub(i, tail)
 			local items = {}
-			for _, v in ipairs(curlySplit(value:gsub("%[", ""):gsub("%]", ""))) do
+			for _, v in ipairs(StringPlus.conditionalSplit(value:gsub("[%[%]]", ""), ",", "{.+}")) do
 				if string.find(v, "{") and string.find(v, "}") then
 					table.insert(items, v)
 					continue
