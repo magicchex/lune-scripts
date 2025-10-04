@@ -33,7 +33,7 @@ function Json.decode(json: string)
 			value = json:sub(i, tail)
 			local items = {}
 			for _, v in ipairs(StringPlus.conditionalSplit(value:gsub("[%[%]]", ""), ",", "{.+}")) do
-				if string.find(v, "{") and string.find(v, "}") then
+				if string.find(v, "{+.*}+") then
 					table.insert(items, v)
 					continue
 				end
@@ -71,12 +71,12 @@ function Json.decode(json: string)
 	end
 
 	for k, v in pairs(dict) do
-		if type(v) == "string" and string.find(v, "{") and string.find(v, "}") then
+		if type(v) == "string" and string.find(v, "{+.*}+") then
 			dict[k] = Json.decode(v)
 		end
 		if type(v) == "table" then
 			for idx, item in ipairs(v) do
-				if type(item) == "string" and string.find(item, "{") and string.find(item, "}") then
+				if type(item) == "string" and string.find(item, "{+.*}+") then
 					table.insert(v, idx, Json.decode(item))
 					table.remove(v, idx + 1)
 				end
