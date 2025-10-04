@@ -7,6 +7,7 @@
     ".luau": "clear && lune run $fullFileName"
   	},
 	"code-runner.runInTerminal": true,
+	"code-runner.ignoreSelection": true,
 	"stylua.targetReleaseVersion": "latest",
 	"chat.disableAIFeatures": true,
 	"cSpell.words": [
